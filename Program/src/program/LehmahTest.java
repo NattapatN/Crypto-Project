@@ -9,7 +9,12 @@ package program;
  *
  * @author NattapatN
  */
-public class ReadFile {
-    public static void main(String[]args){
+public class LehmahTest {
+    public LehmahTest(){}
+    public int getReadKey(int key){
+        
+        return 0;
+    
     }
+    
 }

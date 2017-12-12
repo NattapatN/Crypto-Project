@@ -10,5 +10,9 @@ package program;
  * @author NattapatN
  */
 public class Genkey {
+    public Genkey(){ 
+        GetKeyFromFile gkff =  new GetKeyFromFile(); //key
+        LehmahTest LTest = new LehmahTest(); //test and get real key
+    }
     
 }
