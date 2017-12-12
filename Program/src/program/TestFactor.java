@@ -5,37 +5,51 @@
  */
 package program;
 
+import java.util.Random;
+
 /**
  *
  * @author NattapatN
  */
 public class TestFactor {
+    static int num;
+    static int power;
     public static void main(String []args){
-        int nowpower = 456789;
-        int [] powerCompo = new int[20];
-        int result =1,numb=5;
-        int testNum =1823;
-        int n=1,i=0;
-        while(nowpower==0){
-            if(n>=nowpower/2){
-                powerCompo[i]=n;
-                nowpower -= n;
-                n=1;
-                i++;
+        num=100;
+        power = (num-1)/2;
+        Random ran = new Random();
+        int rand;
+        for(int i=0;i<100;i++){
+            rand = ran.nextInt(num+1);
+            System.out.print(rand+" >> ");
+            rand = getNumNTest(rand);
+            System.out.println(rand);
+            if(rand!=1&&rand!=num-1){
+                num+=2;
+                System.out.println(num);
+                i=0;
             }
-            n*=2;
+        }  
+    }
+    private static int getNumNTest(int numn){
+        int powerr = power;
+        int base = numn;
+        int result = 1;
+        String bitPow = Integer.toBinaryString(powerr);
+        int lenpower = bitPow.length();
+        
+        int [] fastExpo = new int[lenpower];
+        fastExpo[0] = base;
+        for(int i=1;i<lenpower;i++){
+            fastExpo[i] = (fastExpo[i-1]*fastExpo[i-1])%num;
         }
-        /*for(int t=1;i>=0;t=t*2){
-            if(t==powerCompo[i]){
-                result = (result*numb)%testNum;
+        for(int j=lenpower-1;j>=0;j--){
+            int powerin=(int) Math.pow(2, j);
+            if(powerin<=powerr&&powerr!=0){
+                result =(result*fastExpo[j])%num; 
+                powerr-=powerin;
             }
-            else{
-                numb=(int) (Math.pow(numb,2)%testNum);
-            }
-        }*/
-        for(int t =0;t<20;t++){
-            System.out.println(powerCompo[t]);
         }
-        System.out.println(result);
+        return result;
     }
 }

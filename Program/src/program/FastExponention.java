@@ -19,40 +19,37 @@ public class FastExponention {
     public int getFastExpo(int num){
         testNum=num;
         power = (num-1)/2;
-        boolean notPrime= true;
-        while(notPrime){
-            
+        Random ran = new Random();
+        int rand;
+        for(int i=0;i<100;i++){
+            rand = ran.nextInt(testNum);
+            rand = getNumNTest(rand);
+            if(rand!=1||rand!=testNum-1){
+                testNum+=2;
+                i=0;
+            }
         }
-        
-        
-        
-        return 0;
+
+        return testNum;
     }
     
     private int getNumNTest(int num){
-        int numb=num;
-        int nowpower = power;
-        int [] powerCompo = new int[24];
-        int n=1,i=0;
-        int result=1;
-        while(nowpower!=0){
-            if(n>=nowpower){
-                n=n/2;
-                powerCompo[i]=n;
-                nowpower -= n;
-                n=1;
-                i++;
-            }
-            n*=2;
-            
-        }
+        int power = this.power;
+        int base = num;
+        int result = 1;
+        String bitPow = Integer.toBinaryString(power);
+        int lenpower = bitPow.length();
         
-        for(int t=1;i<=0;t++){
-            if(t==powerCompo[i]){
-                result = (result*numb)%testNum;
-            }
-            else{
-                numb=(int) (Math.pow(numb,2)%testNum);
+        int [] fastExpo = new int[lenpower];
+        fastExpo[0] = base;
+        for(int i=1;i<lenpower;i++){
+            fastExpo[i] = (fastExpo[i-1]*fastExpo[i-1])%testNum;
+        }
+        for(int j=lenpower-1;j>=0;j--){
+            int powerin=(int) Math.pow(2, j);
+            if(powerin<=power&&power!=0){
+                result =(result*fastExpo[j])%testNum; 
+                power-=powerin;
             }
         }
         return result;
