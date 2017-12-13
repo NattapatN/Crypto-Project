@@ -15,8 +15,9 @@ public class Menu {
     Scanner scan = new Scanner(System.in);
     public Menu(){
         menuDetail();
-        int menu = checkMenu();
-        gotoMenu(menu);
+        int menu ; 
+        checkMenu();
+        //gotoMenu(menu);
     }
     
     private void menuDetail(){
@@ -33,9 +34,9 @@ public class Menu {
         System.out.print("Enter number of menu : ");
     }
     
-    private int checkMenu(){
+    private void checkMenu(){
         int in=scan.nextInt();
-        boolean check=true;
+        /*boolean check=true;
         while (check){
             if(in>=1&&in<=6){
                 check = false;
@@ -46,14 +47,16 @@ public class Menu {
                 System.out.print("Re-enter number of menu : ");
                 in = scan.nextInt();
             }
-        }
-        
-        return in;
+        }*/
+        gotoMenu(in);
     }
     
     private void gotoMenu(int in){
+        //System.out.println("gotoMenu");
         switch(in){
-            case 1: 
+            case 1: Genkey genk = new Genkey();
+                    //System.out.println("getKey");
+                    genk.genK();
                     break;
             case 2: 
                     break;

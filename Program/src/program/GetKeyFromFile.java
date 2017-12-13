@@ -10,8 +10,8 @@ package program;
  * @author NattapatN
  */
 public class GetKeyFromFile {
-    int key;
-    String bitKey="";
+    
+    
     public GetKeyFromFile(){}
     
     public int getKey(){
@@ -19,13 +19,18 @@ public class GetKeyFromFile {
         ReadFiletoBit readF = new ReadFiletoBit();
         //get Binary from File;
 	StringBuilder sb = readF.read("test.txt");
-        
+        //System.out.println(sb);
+        int key;
+        int n=0;
+        String bitKey = "";
         boolean until1=false;
-        for(int i = 0 ;i<24;){
+        
+        for(int i = 0 ;n<24;i++){
             String test = sb.toString().substring(i, i+1);
             if(test.equals("1")||until1==true){
                 bitKey = bitKey+test;
-                i++;
+                //System.out.print(test);
+                n++;
                 until1=true;
             }
         }
