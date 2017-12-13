@@ -29,7 +29,8 @@ public class Genkey {
         //System.out.println("p = "+p);
         
         //find Real p!!(Safe )
-        FPrime fPrime = new FPrime();
+        FindPrime fPrime= new FindPrime();
+        //FPrime fPrime = new FPrime();
         p =fPrime.getPrime(p);
         //System.out.println("Safe prime = "+p);
         

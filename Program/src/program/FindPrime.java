@@ -19,13 +19,13 @@ public class FindPrime {
         boolean notFound = true;
         
         //Check odd
-        if(num%2==0) num++;
+        if(prime%2==0) prime++;
         
         //Fine Prime
         while(notFound){
-            notFound = isPrime(num);
+            notFound = isPrime(prime);
             if(notFound == true){
-                num+=2;
+                prime+=2;
             }
         }
         
@@ -43,8 +43,8 @@ public class FindPrime {
         for(int i = 0;i<100;i++){
             //random tester
             do{
-            test = ran.nextInt(in+1);
-            }while(test==0||test==in);
+                test = ran.nextInt(in)+1;
+            }while(test==in);
             //System.out.print(test+" = ");
             
             //test tester

@@ -14,73 +14,34 @@ import java.util.Random;
 public class Test_Find_Prime {
     
     public static void main(String [] args){
-        //Define
+        //define
         Scanner scan = new Scanner(System.in);
-        int num;
-        boolean notFound = true;
-        
-        //Get input Number
-        System.out.print("Enter Number : ");
-        num = scan.nextInt();
-        
-        //Check odd
-        if(num%2==0) num++;
-        
-        //Fine Prime
-        while(notFound){
-            notFound = isPrime(num);
-            if(notFound == true){
-                num+=2;
-                System.out.println(num);
-            }
-        }
-        System.out.println(num);
-        
-    }
-    
-    private static boolean isPrime(int inn){
-        //Define
+        TestFastExpo fx = new TestFastExpo();
         Random ran = new Random();
-        int in = inn;
-        int test;
+        int p,r,temp;
+        System.out.print("Enter prime : ");
+        //get p & check odd
         
-        //Check prime by fast expo
-        for(int i = 0;i<100;i++){
-            //random tester
-            do{
-            test = ran.nextInt(in+1);
-            }while(test==0||test==in);
-            System.out.print(test+" = ");
-            
-            //test tester
-            test = fastExpo(test,(in-1)/2);
-            System.out.println(test);
-            
-            //check tester
-            if(test!=1&&test!=in-1) return true;
-        }
-        return false;
-    }
-    
-    private static int fastExpo(int tester,int power){
-        //Define
-        int test = tester;
-        String bitPow = Integer.toBinaryString(power);
-        int lenBitPow = bitPow.length();
-        int result = 1;
-        int [] fexpo = new int[lenBitPow];
+        p= scan.nextInt();
+        if(p%2==0)p++;
         
-        //cal power
-        fexpo[0]=test;
-        for(int i=1;i<lenBitPow;i++){
-            fexpo[i]=Math.floorMod((fexpo[i-1]*fexpo[i-1]),((power*2)+1));
-            
-        }
-        for(int j =lenBitPow-1;j>=0;j--){
-            if(bitPow.substring(j,j+1).equals("1")){
-                result=Math.floorMod(result*(fexpo[j]),((power*2)+1));
+        //test & find prime
+        for (int i = 0; i < 100; i++) {
+            do {
+                r = ran.nextInt(p) + 1;
+            } while (r == p||r<=0);
+
+            temp = fx.getFExpo(r, (p - 1) / 2, p);
+            if (temp != 1 && temp != p - 1) {
+                p += 2;
+                System.out.println("p : "+p);
+                i = 0;
             }
         }
-        return result;
+        
+        System.out.println("Prime is "+p);
+
+        
+     
     }
 }
