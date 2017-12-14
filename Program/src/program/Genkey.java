@@ -11,13 +11,14 @@ import java.util.Random;
  * @author NattapatN
  */
 public class Genkey {
+    int g,p,u,y;
     public Genkey(){ 
         
     }
     
     public void genK(){
         //define
-        int g,p,u,y;
+        
         Random ran = new Random();
         FastExponential fExpo = new FastExponential();
         
@@ -35,12 +36,13 @@ public class Genkey {
         //System.out.println("Safe prime = "+p);
         
         //find g
+        int temp;
         do {
             g = ran.nextInt(p);
         } while (g == 0 || g == p);
-        g = fExpo.getFastExpo(g,(p-1)/2,p);
+        temp = fExpo.getFastExpo(g,(p-1)/2,p);
         //check g
-        if(g==1)g=p-g;
+        if(temp==1)g=p-g;
         
         //Random u
         do {
@@ -52,6 +54,11 @@ public class Genkey {
         System.out.println("--------------------------------------------------");
         System.out.println("Public key is : ("+p+", "+g+", "+y+")");
         System.out.println("Private key is : "+u);
+        System.out.println("--------------------------------------------------");
     }
+    public int getP(){return p;}
+    public int getG(){return g;}
+    public int getY(){return y;}
+    public int getU(){return u;}
     
 }

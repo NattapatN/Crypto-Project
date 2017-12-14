@@ -10,6 +10,22 @@ package program;
  * @author NattapatN
  */
 public class Encryption {
-    public Encryption(){}
+    int p,g,y;
+    ReadFiletoBit readF = new ReadFiletoBit();
+    StringBuilder sb ;
+    public Encryption(int ip,int ig,int iy){
+        p=ip;
+        g=ig;
+        y=iy;
+    }
+    
+    public void Encrypt(int b){ 
+        int block=b;
+        String encpy;
+        sb = readF.read("test.txt");
+        System.out.println(sb);
+        //for (int i=0;i<sb.length();i++){}
+        
+    }
     
 }

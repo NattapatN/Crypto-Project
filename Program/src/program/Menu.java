@@ -12,12 +12,16 @@ import java.util.Scanner;
  * @author NattapatN
  */
 public class Menu {
+    int p,g,y,u;
     Scanner scan = new Scanner(System.in);
     public Menu(){
+        int menu;
+        do{
         menuDetail();
-        int menu ; 
-        checkMenu();
-        //gotoMenu(menu);
+        menu =scan.nextInt(); 
+        menu = checkMenu(menu);
+        gotoMenu(menu);
+        }while(menu!=0);
     }
     
     private void menuDetail(){
@@ -29,26 +33,26 @@ public class Menu {
         System.out.println("4. Signature");
         System.out.println("5. Verify");
         System.out.println("6. Cryptography Hash");
-        
+        System.out.println("0. Exit Program");
         //get input menu
         System.out.print("Enter number of menu : ");
     }
     
-    private void checkMenu(){
-        int in=scan.nextInt();
-        /*boolean check=true;
-        while (check){
+    private int checkMenu(int inn){
+        int in=inn;
+        boolean check=false;
+        while (!check){
             if(in>=1&&in<=6){
-                check = false;
-                System.out.println("yes!!");
+                check = true;
             }
+            else if(in==0){check=true;}
             else{
                 System.out.println("Menu number "+in+" incorrect!!");
                 System.out.print("Re-enter number of menu : ");
                 in = scan.nextInt();
             }
-        }*/
-        gotoMenu(in);
+        }
+        return in;
     }
     
     private void gotoMenu(int in){
@@ -57,8 +61,13 @@ public class Menu {
             case 1: Genkey genk = new Genkey();
                     //System.out.println("getKey");
                     genk.genK();
+                    p=genk.getP();
+                    g=genk.getG();
+                    y=genk.getY();
+                    u=genk.getU();
                     break;
-            case 2: 
+            case 2: Encryption encrypt = new Encryption(p,g,y);
+                    encrypt.Encrypt(24);
                     break;
             case 3: 
                     break;
@@ -66,7 +75,12 @@ public class Menu {
                     break;
             case 5: 
                     break;
+            case 6:
+                    break;
             default :
+                System.out.println("--------------------------------------------------");
+                System.out.println("\t\tProgram Ended.");
+                System.out.println("--------------------------------------------------");
             
         }
     }
