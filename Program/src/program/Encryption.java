@@ -14,6 +14,7 @@ public class Encryption {
     static int k;
     static int block;
     static String cipherA="",cipherB="";
+    Padding padding = new Padding();
     static DectoBinary d2b = new DectoBinary();
     ReadFiletoBit readF = new ReadFiletoBit();
     StringBuilder sb ;
@@ -32,13 +33,15 @@ public class Encryption {
         String encpy="";
         sb = readF.read("test.txt");
         String sbn = sb.toString();
-        System.out.println(sbn);
+        System.out.println("File : "+sbn);
         int i =0;
+        //System.out.println("legth : "+sbn.length());
+        sbn = sbn+padding.getPadding(sbn.length(), block);
         while (sbn.length()>1){
             //full block
             if(i!=0&&i%block==0){
                 goEnc = Integer.parseInt(encpy, 2);
-                System.out.println(goEnc);
+                //System.out.println("Plain text "+d2b.getBinary(goEnc,block));
                 goEncrypt(goEnc);
                 //key = Integer.parseInt(bitKey, 2);
                 i=0;
@@ -48,11 +51,10 @@ public class Encryption {
             if (sbn.length()>1) {
                 //add string
                 encpy = encpy + sbn.substring(0, 1);
-
                 //substring
                 sbn = sbn.substring(1);
-                i++;
             }
+            i++;
         }
         System.out.println("Cipher A : "+cipherA);
         System.out.println("Cipher B : "+cipherB);

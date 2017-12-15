@@ -18,12 +18,10 @@ public class FindK {
     
     public int getK(){
         Random ran = new Random();
-        int k=ran.nextInt(p-1)+1;
+        int k=ran.nextInt(p-2)+1;
         ExtendedEuclidGCD exU = new ExtendedEuclidGCD();
-        int gcd=exU.getGCD(k,p);
-        while (gcd!=1){
-            k=ran.nextInt(p-1)+1;
-            gcd=exU.getGCD(k,p);
+        while (!exU.getGCD(k, p-1)){
+            k=ran.nextInt(p-2)+1;
         }
         System.out.println("k : "+k);
         return k;

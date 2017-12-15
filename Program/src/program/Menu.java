@@ -60,27 +60,37 @@ public class Menu {
     private void gotoMenu(int in){
         //System.out.println("gotoMenu");
         switch(in){
-            case 1: Genkey genk = new Genkey();
+            case 1: System.out.println("--------------------------------------------------");
+                    Genkey genk = new Genkey();
                     //System.out.println("getKey");
                     genk.genK();
                     p=genk.getP();
                     g=genk.getG();
                     y=genk.getY();
                     u=genk.getU();
+                    System.out.println("--------------------------------------------------");
                     break;
-            case 2: Encryption encrypt = new Encryption(p,g,y);
+            case 2: System.out.println("--------------------------------------------------");
+                    Encryption encrypt = new Encryption(p,g,y);
                     encrypt.Encrypt(24);
                     cipherA= encrypt.getCipherA();
                     cipherB= encrypt.getCipherB();
+                    System.out.println("--------------------------------------------------");
                     break;
-            case 3: Decryption decrypt = new Decryption(u,p);
+            case 3: System.out.println("--------------------------------------------------");
+                    Decryption decrypt = new Decryption(u,p);
                     decrypt.getDecrypt(cipherA, cipherB, 24);
+                    System.out.println("--------------------------------------------------");
                     break;
-            case 4: 
+            case 4: System.out.println("--------------------------------------------------");
+                    System.out.println("--------------------------------------------------");
                     break;
-            case 5: 
+            case 5: System.out.println("--------------------------------------------------");
+                    System.out.println("--------------------------------------------------");
                     break;
             case 6:
+                    System.out.println("--------------------------------------------------");
+                    System.out.println("--------------------------------------------------");
                     break;
             default :
                 System.out.println("--------------------------------------------------");

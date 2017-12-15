@@ -5,14 +5,13 @@
  */
 package program;
 
-import static program.Encryption.block;
-
 /**
  *
  * @author NattapatN
  */
 public class Decryption {
     int u,p,block;
+    Padding pad = new Padding();
     static DectoBinary d2b = new DectoBinary();
     static ExtendedEuclidGCD xuGCD = new ExtendedEuclidGCD();
     FastExponential fExpo = new FastExponential();
@@ -35,9 +34,8 @@ public class Decryption {
             if(i!=0&&i%block==0){
                 ciA= Integer.parseInt(tempA, 2);
                 ciB= Integer.parseInt(tempB, 2);
-                System.out.println("A : "+ciA+" B : "+ciB);
                 textBl = goDecrypt(ciA,ciB);
-                text = text+textBl;
+                text = text+d2b.getBinary(textBl,block) ;
                 i=0;
                 ciA=0;
                 ciB=0;
@@ -59,16 +57,18 @@ public class Decryption {
             }
             i++;
         }
-        System.out.println("text : "+text);
+        text= pad.UnPad(text);
+        System.out.println("Plain Text : "+text);
     }
     private int goDecrypt(int ain,int bin){
         int a=ain;
         int b= bin;
         long x,invertA;
         a=fExpo.getFastExpo(a,u,p);
-        invertA=xuGCD.getGCD(a, p);
+        //System.out.println("a : "+a);
+        boolean some = xuGCD.getGCD(a, p);
         invertA=xuGCD.getA2();
-        System.out.println("Invert A : "+invertA);
+        //System.out.println("Invert A : "+invertA);
         x=Math.floorMod(b*invertA, p);
         return (int)x;
     }

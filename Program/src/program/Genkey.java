@@ -46,10 +46,9 @@ public class Genkey {
         
         //create y
         y=fExpo.getFastExpo(g, u, p);
-        System.out.println("--------------------------------------------------");
+        
         System.out.println("Public key is : ("+p+", "+g+", "+y+")");
         System.out.println("Private key is : "+u);
-        System.out.println("--------------------------------------------------");
     }
     public int getP(){return p;}
     public int getG(){return g;}
