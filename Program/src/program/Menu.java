@@ -13,6 +13,8 @@ import java.util.Scanner;
  */
 public class Menu {
     int p,g,y,u;
+    String cipherA,cipherB;
+    String textA,textB;
     Scanner scan = new Scanner(System.in);
     public Menu(){
         int menu;
@@ -68,8 +70,11 @@ public class Menu {
                     break;
             case 2: Encryption encrypt = new Encryption(p,g,y);
                     encrypt.Encrypt(24);
+                    cipherA= encrypt.getCipherA();
+                    cipherB= encrypt.getCipherB();
                     break;
-            case 3: 
+            case 3: Decryption decrypt = new Decryption(u,p);
+                    decrypt.getDecrypt(cipherA, cipherB, 24);
                     break;
             case 4: 
                     break;

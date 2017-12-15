@@ -12,7 +12,9 @@ package program;
 public class Encryption {
     static int p,g,y;
     static int k;
+    static int block;
     static String cipherA="",cipherB="";
+    static DectoBinary d2b = new DectoBinary();
     ReadFiletoBit readF = new ReadFiletoBit();
     StringBuilder sb ;
     public Encryption(int ip,int ig,int iy){
@@ -25,7 +27,7 @@ public class Encryption {
         FindK fk= new FindK(p-1);
         //find k gcd
         k = fk.getK();
-        int block=b;
+        block=b;
         int goEnc;
         String encpy="";
         sb = readF.read("test.txt");
@@ -59,12 +61,13 @@ public class Encryption {
     
     public static void goEncrypt(int in){
         FastExponential fExpo = new FastExponential();
-        
         int cA = fExpo.getFastExpo(g, k, p);
-        int cB = fExpo.getFastExpo(y, k, p);
+        long cB = fExpo.getFastExpo(y, k, p);
         cB = Math.floorMod((cB*in),p);
-        cipherA = cipherA+cA;
-        cipherB = cipherB+cB;
+        String cAs = d2b.getBinary(cA,block);
+        String cBs = d2b.getBinary((int)cB,block);
+        cipherA = cipherA+cAs;
+        cipherB = cipherB+cBs;
     }
     
     public String getCipherA(){return cipherA;}
