@@ -17,7 +17,7 @@ public class FindPrime {
     public int getPrime(int num){
         int prime =num;
         boolean found = false;
-        ElgamalTest eTest = new ElgamalTest();
+        LehmahTest eTest = new LehmahTest();
         
         //Check odd
         if(prime%2==0) prime++;

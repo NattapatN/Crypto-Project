@@ -18,7 +18,6 @@ public class Genkey {
     
     public void genK(){
         //define
-        
         Random ran = new Random();
         FastExponential fExpo = new FastExponential();
         
@@ -37,17 +36,13 @@ public class Genkey {
         
         //find g
         int temp;
-        do {
-            g = ran.nextInt(p);
-        } while (g == 0 || g == p);
+        g = ran.nextInt(p-1)+1;
         temp = fExpo.getFastExpo(g,(p-1)/2,p);
         //check g
         if(temp==1)g=p-g;
         
         //Random u
-        do {
-            u = ran.nextInt(p);
-        } while (u == 0 || u == p);
+        u = ran.nextInt(p-1)+1;
         
         //create y
         y=fExpo.getFastExpo(g, u, p);

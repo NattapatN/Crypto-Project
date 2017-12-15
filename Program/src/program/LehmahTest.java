@@ -11,8 +11,8 @@ import java.util.Random;
  *
  * @author NattapatN
  */
-public class ElgamalTest {
-    public ElgamalTest(){}
+public class LehmahTest {
+    public LehmahTest(){}
     
     public boolean isPrime(int inn){
         //Define
@@ -24,9 +24,7 @@ public class ElgamalTest {
         //Check prime by fast expo
         for(int i = 0;i<100;i++){
             //random tester
-            do{
-                test = ran.nextInt(in)+1;
-            }while(test==in);
+            test = ran.nextInt(in-1)+1;
             //System.out.print(test+" = ");
             
             //test tester
