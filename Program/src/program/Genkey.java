@@ -5,22 +5,26 @@
  */
 package program;
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author NattapatN
  */
 public class Genkey {
+    PrintWriter writePublic ;
+    PrintWriter writePrivate ;
     int g,p,u,y;
     public Genkey(){ 
         
     }
     
     public void genK(){
-        //define
         Random ran = new Random();
         FastExponential fExpo = new FastExponential();
-        
         
         //get p from file
         GetKeyFromFile gkff =  new GetKeyFromFile();
@@ -46,9 +50,22 @@ public class Genkey {
         
         //create y
         y=fExpo.getFastExpo(g, u, p);
-        
         System.out.println("Public key is : ("+p+", "+g+", "+y+")");
         System.out.println("Private key is : "+u);
+        try {
+            //define
+            writePublic = new PrintWriter("PublicKey.txt");
+            writePublic.println(p);
+            writePublic.println(g);
+            writePublic.println(y);
+            writePublic.close();
+            writePrivate = new PrintWriter("PrivateKey.txt");
+            writePrivate.println(u);
+            writePrivate.println(p);
+            writePrivate.close();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Genkey.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     public int getP(){return p;}
     public int getG(){return g;}

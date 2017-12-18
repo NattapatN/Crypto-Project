@@ -5,6 +5,7 @@
  */
 package program;
 
+import java.io.PrintWriter;
 import java.util.Scanner;
 
 /**
@@ -59,27 +60,26 @@ public class Menu {
     
     private void gotoMenu(int in){
         //System.out.println("gotoMenu");
+        String a;
         switch(in){
             case 1: System.out.println("--------------------------------------------------");
                     Genkey genk = new Genkey();
                     //System.out.println("getKey");
                     genk.genK();
-                    p=genk.getP();
-                    g=genk.getG();
-                    y=genk.getY();
-                    u=genk.getU();
                     System.out.println("--------------------------------------------------");
                     break;
             case 2: System.out.println("--------------------------------------------------");
-                    Encryption encrypt = new Encryption(p,g,y);
-                    encrypt.Encrypt(24);
-                    cipherA= encrypt.getCipherA();
-                    cipherB= encrypt.getCipherB();
+                    Encryption encrypt = new Encryption();
+                    System.out.print("Enter Filename (Plaintext) : ");
+                    a= scan.next();
+                    encrypt.Encrypt(a,24);
                     System.out.println("--------------------------------------------------");
                     break;
             case 3: System.out.println("--------------------------------------------------");
-                    Decryption decrypt = new Decryption(u,p);
-                    decrypt.getDecrypt(cipherA, cipherB, 24);
+                    Decryption decrypt = new Decryption();
+                    System.out.print("Enter Filename (Ciphertext) : ");
+                    a= scan.next();
+                    decrypt.getDecrypt(a,24);
                     System.out.println("--------------------------------------------------");
                     break;
             case 4: System.out.println("--------------------------------------------------");

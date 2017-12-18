@@ -5,25 +5,36 @@
  */
 package program;
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import static program.Encryption.writeCipher;
+
 /**
  *
  * @author NattapatN
  */
 public class Decryption {
+    static String filename;
     int u,p,block;
+    static PrintWriter writeCipher;
     Padding pad = new Padding();
     static DectoBinary d2b = new DectoBinary();
     static ExtendedEuclidGCD xuGCD = new ExtendedEuclidGCD();
     FastExponential fExpo = new FastExponential();
-    public Decryption(int uin,int pin){
-        u=uin;
-        p=pin;
+    public Decryption(){
+        GetKey getKey = new GetKey("PrivateKey.txt");
+        u=Integer.parseInt(getKey.getA());
+        p=Integer.parseInt(getKey.getB());
     }
     
-    public void getDecrypt(String ain,String bin,int bl){
+    public void getDecrypt(String file,int bl){
+        filename = file;
+        GetKey getCipher = new GetKey(filename);
         block=bl;
-        String a=ain+"0";
-        String b=bin+"0";
+        String a=getCipher.getA()+"0";
+        String b=getCipher.getB()+"0";
         String tempA="",tempB="";
         int ciA,ciB;
         int textBl;
@@ -59,6 +70,15 @@ public class Decryption {
         }
         text= pad.UnPad(text);
         System.out.println("Plain Text : "+text);
+//        int charCode = Integer.parseInt(text, 2);
+//        String str = new Character((char)Integer.parseInt(text, 2)).toString();
+        try {
+            writeCipher = new PrintWriter(filename);
+            writeCipher.println(text);
+            writeCipher.close();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Encryption.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     private int goDecrypt(int ain,int bin){
         int a=ain;

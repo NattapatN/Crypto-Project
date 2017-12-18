@@ -23,7 +23,6 @@ public class InFiletoBit {
         StringBuilder sb = new StringBuilder();
         try (BufferedInputStream is = new BufferedInputStream(new FileInputStream(filename))) {
             for (int b; (b = is.read()) != -1;) {
-                String s = Integer.toString(b);
                 int mask;
                 for (int i = 7; i >= 0; i--) {
                     mask = 1 << i;

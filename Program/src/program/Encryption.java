@@ -5,11 +5,18 @@
  */
 package program;
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author NattapatN
  */
 public class Encryption {
+    static String filename;
+    static PrintWriter writeCipher;
     static int p,g,y;
     static int k;
     static int block;
@@ -18,13 +25,16 @@ public class Encryption {
     static DectoBinary d2b = new DectoBinary();
     InFiletoBit readF = new InFiletoBit();
     StringBuilder sb ;
-    public Encryption(int ip,int ig,int iy){
-        p=ip;
-        g=ig;
-        y=iy;
+    
+    public Encryption(){
+        GetKey getKey = new GetKey("PublicKey.txt");
+        p=Integer.parseInt(getKey.getA());
+        g=Integer.parseInt(getKey.getB());
+        y=Integer.parseInt(getKey.getC());
     }
     
-    public void Encrypt(int b){ 
+    public void Encrypt(String file,int b){ 
+        filename = file;
         FindK fk= new FindK(p-1);
         //find k gcd
         k = fk.getK();
@@ -58,9 +68,7 @@ public class Encryption {
         }
         System.out.println("Cipher A : "+cipherA);
         System.out.println("Cipher B : "+cipherB);
-        
     }
-    
     public static void goEncrypt(int in){
         FastExponential fExpo = new FastExponential();
         int cA = fExpo.getFastExpo(g, k, p);
@@ -70,10 +78,15 @@ public class Encryption {
         String cBs = d2b.getBinary((int)cB,block);
         cipherA = cipherA+cAs;
         cipherB = cipherB+cBs;
+        try {
+            writeCipher = new PrintWriter(filename);
+            writeCipher.println(cipherA);
+            writeCipher.println(cipherB);
+            writeCipher.close();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Encryption.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
-    
-    public String getCipherA(){return cipherA;}
-    public String getCipherB(){return cipherB;}
     
     
 }
