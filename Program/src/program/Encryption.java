@@ -16,7 +16,7 @@ public class Encryption {
     static String cipherA="",cipherB="";
     Padding padding = new Padding();
     static DectoBinary d2b = new DectoBinary();
-    ReadFiletoBit readF = new ReadFiletoBit();
+    InFiletoBit readF = new InFiletoBit();
     StringBuilder sb ;
     public Encryption(int ip,int ig,int iy){
         p=ip;
@@ -31,7 +31,7 @@ public class Encryption {
         block=b;
         int goEnc;
         String encpy="";
-        sb = readF.read("test.txt");
+        sb = readF.toBit("test.txt");
         String sbn = sb.toString();
         System.out.println("File : "+sbn);
         int i =0;
