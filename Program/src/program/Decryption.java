@@ -18,11 +18,12 @@ import static program.Encryption.writeCipher;
 public class Decryption {
     static String filename;
     int u,p,block;
-    static PrintWriter writeCipher;
     Padding pad = new Padding();
     static DectoBinary d2b = new DectoBinary();
     static ExtendedEuclidGCD xuGCD = new ExtendedEuclidGCD();
     FastExponential fExpo = new FastExponential();
+    static PrintWriter writePlain;
+    
     public Decryption(){
         GetKey getKey = new GetKey("PrivateKey.txt");
         u=Integer.parseInt(getKey.getA());
@@ -31,6 +32,7 @@ public class Decryption {
     
     public void getDecrypt(String file,int bl){
         filename = file;
+        BitToText b2t = new BitToText();
         GetKey getCipher = new GetKey(filename);
         block=bl;
         String a=getCipher.getA()+"0";
@@ -69,13 +71,12 @@ public class Decryption {
             i++;
         }
         text= pad.UnPad(text);
+        text = b2t.getText(text);
         System.out.println("Plain Text : "+text);
-//        int charCode = Integer.parseInt(text, 2);
-//        String str = new Character((char)Integer.parseInt(text, 2)).toString();
         try {
-            writeCipher = new PrintWriter(filename);
-            writeCipher.println(text);
-            writeCipher.close();
+            writePlain = new PrintWriter(filename);
+            writePlain .println(text);
+            writePlain .close();
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Encryption.class.getName()).log(Level.SEVERE, null, ex);
         }

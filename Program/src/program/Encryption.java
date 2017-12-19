@@ -71,6 +71,7 @@ public class Encryption {
     }
     public static void goEncrypt(int in){
         FastExponential fExpo = new FastExponential();
+        BitToText b2t = new BitToText();
         int cA = fExpo.getFastExpo(g, k, p);
         long cB = fExpo.getFastExpo(y, k, p);
         cB = Math.floorMod((cB*in),p);
