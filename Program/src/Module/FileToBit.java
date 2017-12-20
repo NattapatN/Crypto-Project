@@ -35,6 +35,7 @@ public class FileToBit {
         } catch (IOException ex) {
             Logger.getLogger(InFiletoBit.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         return sb;
     }
     

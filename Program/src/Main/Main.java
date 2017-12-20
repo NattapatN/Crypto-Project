@@ -30,7 +30,7 @@ public class Main {
         System.out.println("Main Menu..");
         System.out.println("1. Generate key");
         System.out.println("2. Encryption");
-        System.out.println("3. Edcryption");
+        System.out.println("3. Decryption");
         System.out.println("4. Signature");
         System.out.println("5. Verify");
         System.out.println("6. Cryptography Hash");
@@ -57,23 +57,33 @@ public class Main {
     }
      
      private static void gotoMenu(int in){
+         String filename;
+         int size;
         //System.out.println("gotoMenu");
         switch(in){
             case 1: System.out.println("--------------------------------------------------");
                     System.out.println("[Generate key]");
                     System.out.print("Enter Filename : ");
-                    String filename = scan.next();
+                    filename = scan.next();
                     System.out.print("Enter Key Size (<32 bit) : ");
-                    int kSize = scan.nextInt();
-                    GenKey genKey =new GenKey(filename,kSize);
+                    size = scan.nextInt();
+                    GenKey genKey =new GenKey(filename,size);
                     System.out.println("--------------------------------------------------");
                     break;
             case 2: System.out.println("--------------------------------------------------");
                     System.out.println("[Encryption]");
+                    System.out.print("Enter Filename : ");
+                    filename = scan.next();
+                    System.out.print("Enter Block Size (<32 bit) : ");
+                    size = scan.nextInt();
+                    Encryption encrypt = new Encryption(filename,size);
                     System.out.println("--------------------------------------------------");
                     break;
             case 3: System.out.println("--------------------------------------------------");
-                    System.out.println("[Edcryption]");
+                    System.out.println("[Decryption]");
+                    System.out.print("Enter Block Size (<32 bit) : ");
+                    size = scan.nextInt();
+                    Decryption decryp = new Decryption(size);
                     System.out.println("--------------------------------------------------");
                     break;
             case 4: System.out.println("--------------------------------------------------");

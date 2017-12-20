@@ -68,8 +68,8 @@ public class GenKey {
         //GetFile
         Module.ReadFiletoBit readF = new Module.ReadFiletoBit();
         //get Binary from File;
-	StringBuilder sb = readF.read("test.txt");
-        //System.out.println(sb);
+	StringBuilder sb = readF.read(fileName);
+//        System.out.println(sb);
         int key = 0;
         int n=0;
         String bitKey = "";
