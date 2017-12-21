@@ -6,8 +6,11 @@
 package crypto_project;
 
 import Module.*;
+import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -17,10 +20,14 @@ import java.util.Random;
 public class Encryption {
     static String filename;
     static PrintWriter writeCipher;
-    Random ran = new Random();
+    DectoBi d2b = new DectoBi();
+    ReadBitFile rbf =new ReadBitFile();
+    Random ran = new Random(); 
+    FastExpo fExpo = new FastExpo();
     static int p,g,y;
     static int k;
     static int block;
+    Padding padd = new Padding();
     static String cipherA="",cipherB="";
     
     public Encryption(){
@@ -30,12 +37,30 @@ public class Encryption {
         y=Integer.parseInt(getKey.getC());
     }
     
-    public boolean encrypt(String file,int b){
+    public boolean encrypt(String file,int b,String fileOut){
         filename =file;
+        block = b;
+        String plain;
         
         //find k
         k = getK();
         
+        //read plaintext
+        plain = rbf.readBit(file);
+        
+        //Padding
+        plain = padd.fillPad(plain,b);
+        
+        //encrypt
+        String temp;
+        while(plain.length()>b){
+            temp = plain.substring(0,b);
+            goEncrypt(Integer.parseInt(temp, 2));
+            plain = plain.substring(b);
+        }
+        
+        //write file 
+        if(writetoFile(fileOut))System.out.println("Encryption Complete!!");
         
         
         
@@ -48,8 +73,32 @@ public class Encryption {
         int n;
         do{
             n=ran.nextInt(p-1)+1;
-        }while(exGCD.getGCD(p-1, n));
+        }while(!exGCD.getGCD(p-1, n));
         
         return n;
+    }
+    
+    private void goEncrypt(int in){
+        int a,b;
+        long temp;
+        a= fExpo.getFExpo(g, k, p);
+        b=fExpo.getFExpo(y, k, p);
+        temp = Math.floorMod(b*in, p);
+        
+        cipherA = cipherA+d2b.getBinary(a, block);
+        cipherB = cipherB+d2b.getBinary((int)temp, block);
+    }
+    
+    private boolean writetoFile(String toFile){
+        try {
+            writeCipher = new PrintWriter(toFile);
+            writeCipher.println(cipherA);
+            writeCipher.println(cipherB);
+            writeCipher.close();
+            return true;
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Encryption.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return true;
     }
 }

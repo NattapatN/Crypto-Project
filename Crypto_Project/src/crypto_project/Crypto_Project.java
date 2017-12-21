@@ -61,6 +61,7 @@ public class Crypto_Project {
 
     private static void gotoMenu(int in) {
         String filename;
+        String fileOut;
         int size;
         //System.out.println("gotoMenu");
         switch (in) {
@@ -84,21 +85,27 @@ public class Crypto_Project {
                 filename = scan.next();
                 System.out.print("Enter Block Size (<32 bit) : ");
                 size = scan.nextInt();
-//                Encryption encrypt = new Encryption();
-//                if (encrypt.encrypt(filename, size)) {
-//                    System.out.println("[Dencryption Complete!!]");
-//                }
+                System.out.print("Enter FileOut: ");
+                fileOut = scan.next();
+                Encryption encrypt = new Encryption();
+                if (encrypt.encrypt(filename, size,fileOut)) {
+                    System.out.println("[Encryption Complete!!]");
+                }
                 System.out.println("--------------------------------------------------");
                 break;
             case 3:
                 System.out.println("--------------------------------------------------");
                 System.out.println("[Decryption]");
+                System.out.print("Enter Filename : ");
+                filename = scan.next();
                 System.out.print("Enter Block Size (<32 bit) : ");
                 size = scan.nextInt();
-//                Decryption decryp = new Decryption();
-//                if (decryp.Decrypt(size)) {
-//                    System.out.println("[Decryption Complete!!]");
-//                }
+                System.out.print("Enter FileOut: ");
+                fileOut = scan.next();
+                Decryption decryp = new Decryption();
+                if (decryp.decrypt(filename,size,fileOut)) {
+                    System.out.println("[Decryption Complete!!]");
+                }
                 System.out.println("--------------------------------------------------");
                 break;
             case 4:
