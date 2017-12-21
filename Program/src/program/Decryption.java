@@ -30,7 +30,7 @@ public class Decryption {
         p=Integer.parseInt(getKey.getB());
     }
     
-    public void getDecrypt(String file,int bl){
+    public void getDecrypt(String file,int bl,String fileout){
         filename = file;
         BitToText b2t = new BitToText();
         GetKey getCipher = new GetKey(filename);
@@ -74,7 +74,7 @@ public class Decryption {
         text = b2t.getText(text);
         System.out.println("Plain Text : "+text);
         try {
-            writePlain = new PrintWriter(filename);
+            writePlain = new PrintWriter(fileout);
             writePlain .println(text);
             writePlain .close();
         } catch (FileNotFoundException ex) {

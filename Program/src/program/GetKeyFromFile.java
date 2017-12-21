@@ -14,18 +14,18 @@ public class GetKeyFromFile {
     
     public GetKeyFromFile(){}
     
-    public int getKey(){
+    public int getKey(String filename,int size){
         //GetFile
         ReadFiletoBit readF = new ReadFiletoBit();
         //get Binary from File;
-	StringBuilder sb = readF.read("test.txt");
+	StringBuilder sb = readF.read(filename);
         //System.out.println(sb);
         int key;
         int n=0;
         String bitKey = "";
         boolean until1=false;
         
-        for(int i = 0 ;n<24;i++){
+        for(int i = 0 ;n<size;i++){
             String test = sb.toString().substring(i, i+1);
             if(test.equals("1")||until1==true){
                 bitKey = bitKey+test;

@@ -13,21 +13,23 @@ import java.util.Scanner;
  * @author NattapatN
  */
 public class Menu {
-    int p,g,y,u;
-    String cipherA,cipherB;
-    String textA,textB;
+
+    int p, g, y, u;
+    String cipherA, cipherB;
+    String textA, textB;
     Scanner scan = new Scanner(System.in);
-    public Menu(){
+
+    public Menu() {
         int menu;
-        do{
-        menuDetail();
-        menu =scan.nextInt(); 
-        menu = checkMenu(menu);
-        gotoMenu(menu);
-        }while(menu!=0);
+        do {
+            menuDetail();
+            menu = scan.nextInt();
+            menu = checkMenu(menu);
+            gotoMenu(menu);
+        } while (menu != 0);
     }
-    
-    private void menuDetail(){
+
+    private void menuDetail() {
         //Menu
         System.out.println("Main Menu..");
         System.out.println("1. Generate key");
@@ -40,64 +42,85 @@ public class Menu {
         //get input menu
         System.out.print("Enter number of menu : ");
     }
-    
-    private int checkMenu(int inn){
-        int in=inn;
-        boolean check=false;
-        while (!check){
-            if(in>=1&&in<=6){
+
+    private int checkMenu(int inn) {
+        int in = inn;
+        boolean check = false;
+        while (!check) {
+            if (in >= 1 && in <= 6) {
                 check = true;
-            }
-            else if(in==0){check=true;}
-            else{
-                System.out.println("Menu number "+in+" incorrect!!");
+            } else if (in == 0) {
+                check = true;
+            } else {
+                System.out.println("Menu number " + in + " incorrect!!");
                 System.out.print("Re-enter number of menu : ");
                 in = scan.nextInt();
             }
         }
         return in;
     }
-    
-    private void gotoMenu(int in){
+
+    private void gotoMenu(int in) {
         //System.out.println("gotoMenu");
-        String a;
-        switch(in){
-            case 1: System.out.println("--------------------------------------------------");
-                    Genkey genk = new Genkey();
-                    //System.out.println("getKey");
-                    genk.genK();
-                    System.out.println("--------------------------------------------------");
-                    break;
-            case 2: System.out.println("--------------------------------------------------");
-                    Encryption encrypt = new Encryption();
-                    System.out.print("Enter Filename (Plaintext) : ");
-                    a= scan.next();
-                    encrypt.Encrypt(a,24);
-                    System.out.println("--------------------------------------------------");
-                    break;
-            case 3: System.out.println("--------------------------------------------------");
-                    Decryption decrypt = new Decryption();
-                    System.out.print("Enter Filename (Ciphertext) : ");
-                    a= scan.next();
-                    decrypt.getDecrypt(a,24);
-                    System.out.println("--------------------------------------------------");
-                    break;
-            case 4: System.out.println("--------------------------------------------------");
-                    System.out.println("--------------------------------------------------");
-                    break;
-            case 5: System.out.println("--------------------------------------------------");
-                    System.out.println("--------------------------------------------------");
-                    break;
+        String filename,fileout;
+        int size;
+        switch (in) {
+            case 1:
+                System.out.println("--------------------------------------------------");
+                System.out.println("[Generate key]");
+                System.out.print("Enter Filename : ");
+                filename = scan.next();
+                System.out.print("Enter Key Size (<32 bit) : ");
+                size = scan.nextInt();
+                Genkey genk = new Genkey();
+                //System.out.println("getKey");
+                genk.genK(filename,size);
+                System.out.println("--------------------------------------------------");
+                break;
+            case 2:
+                System.out.println("--------------------------------------------------");
+                Encryption encrypt = new Encryption();
+                System.out.println("[Encryption]");
+                System.out.print("Enter Filename : ");
+                filename = scan.next();
+                System.out.print("Enter Block Size (<32 bit) : ");
+                size = scan.nextInt();
+                System.out.print("Enter FileOut: ");
+                fileout = scan.next();
+                encrypt.Encrypt(filename, size,fileout);
+                System.out.println("--------------------------------------------------");
+                break;
+            case 3:
+                System.out.println("--------------------------------------------------");
+                Decryption decrypt = new Decryption();
+                System.out.println("[Decryption]");
+                System.out.print("Enter Filename : ");
+                filename = scan.next();
+                System.out.print("Enter Block Size (<32 bit) : ");
+                size = scan.nextInt();
+                System.out.print("Enter FileOut: ");
+                fileout = scan.next();
+                decrypt.getDecrypt(filename, size,fileout);
+                System.out.println("--------------------------------------------------");
+                break;
+            case 4:
+                System.out.println("--------------------------------------------------");
+                System.out.println("--------------------------------------------------");
+                break;
+            case 5:
+                System.out.println("--------------------------------------------------");
+                System.out.println("--------------------------------------------------");
+                break;
             case 6:
-                    System.out.println("--------------------------------------------------");
-                    System.out.println("--------------------------------------------------");
-                    break;
-            default :
+                System.out.println("--------------------------------------------------");
+                System.out.println("--------------------------------------------------");
+                break;
+            default:
                 System.out.println("--------------------------------------------------");
                 System.out.println("\t\tProgram Ended.");
                 System.out.println("--------------------------------------------------");
-            
+
         }
     }
-    
+
 }

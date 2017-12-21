@@ -22,13 +22,13 @@ public class Genkey {
         
     }
     
-    public void genK(){
+    public void genK(String filename,int size){
         Random ran = new Random();
         FastExponential fExpo = new FastExponential();
         
         //get p from file
         GetKeyFromFile gkff =  new GetKeyFromFile();
-        p = gkff.getKey();
+        p = gkff.getKey(filename,size);
         //System.out.println("-------------------------------------------------");
         //System.out.println("p = "+p);
         
