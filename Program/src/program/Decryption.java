@@ -42,8 +42,9 @@ public class Decryption {
         BitToText b2t = new BitToText();
         GetKey getCipher = new GetKey(filename);
         block=bl;
-        String a=getCipher.getA()+"0";
-        String b=getCipher.getB()+"0";
+        String a=getCipher.getA();
+        String b=getCipher.getB();
+        System.out.println(a.length()+" "+b.length());
         int padd = Integer.parseInt(getCipher.getC());
         String tempA="",tempB="";
         int ciA,ciB;
@@ -77,9 +78,18 @@ public class Decryption {
             }
             i++;
         }
-        //text = text.substring(0,text.length()-padd);
-        writeFile(fileout);
+        ciA= Integer.parseInt(tempA, 2);
+                ciB= Integer.parseInt(tempB, 2);
+                textBl = goDecrypt(ciA,ciB);
+                text = text+d2b.getBinary(textBl,block) ;
         
+        System.out.println(text.length());
+        if (padd != 0) {
+            text = text.substring(0, (text.length() - padd));
+        }
+        writeFile(fileout);
+        System.out.println(text);
+        aa(fileout);
         //text= pad.UnPad(text);
         //text = b2t.getText(text);
 //        System.out.println("Plain Text : "+text);
@@ -122,6 +132,16 @@ public class Decryption {
         byte[] bval = new BigInteger(in, 2).toByteArray();
         
         return bval;
+    }
+    
+    public void aa(String f){
+        try {
+            writeCipher = new PrintWriter("2.txt");
+            writeCipher.println(text);
+            writeCipher.close();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Decryption.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 }

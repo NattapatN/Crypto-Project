@@ -20,6 +20,7 @@ import java.util.logging.Logger;
  */
 public class Encryption {
     static PrintWriter writeCipher;
+    PrintWriter writetest;
     static int p,g,y;
     static int k;
     static int block;
@@ -50,10 +51,13 @@ public class Encryption {
         System.out.println("File : "+sbn);
         int i =0;
         //System.out.println("legth : "+sbn.length());
+        System.out.println(sbn.length());
+        padd=sbn.length()% block;
+        padd=(block-padd)%block;
+        System.out.println(padd);
         sbn = sbn+padding.getPadding(sbn.length(), block);
-        padd=Math.floorMod(sbn.length(), block);
-        padd=block-padd;
-        while (sbn.length()>1){
+        boolean end = false;
+        while (!end){
             //full block
             if(i!=0&&i%block==0){
                 goEnc = Integer.parseInt(encpy, 2);
@@ -70,8 +74,29 @@ public class Encryption {
                 //substring
                 sbn = sbn.substring(1);
             }
+            else{
+                encpy= encpy +sbn;
+                end=true;
+            }
             i++;
         }
+        goEnc = Integer.parseInt(encpy, 2);
+        //System.out.println("Plain text "+d2b.getBinary(goEnc,block));
+        goEncrypt(goEnc, fileout);
+        
+        try {
+            writeCipher = new PrintWriter(fileout);
+            writeCipher.println(cipherA);
+            writeCipher.println(cipherB);
+            writeCipher.println(padd);
+            writeCipher.close();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Encryption.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        aa(fileout);
+        System.out.println(cipherA.length());
+        System.out.println(cipherB.length());
         System.out.println("Cipher A : "+cipherA);
         System.out.println("Cipher B : "+cipherB);
     }
@@ -84,11 +109,13 @@ public class Encryption {
         String cBs = d2b.getBinary((int)cB,block);
         cipherA = cipherA+cAs;
         cipherB = cipherB+cBs;
+        
+    }
+    
+    private void aa(String fileout){
         try {
-            writeCipher = new PrintWriter(fileout);
-            writeCipher.println(cipherA);
-            writeCipher.println(cipherB);
-            writeCipher.println(padd);
+            writeCipher = new PrintWriter("1.txt");
+            writeCipher.println(sb);
             writeCipher.close();
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Encryption.class.getName()).log(Level.SEVERE, null, ex);

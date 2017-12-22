@@ -22,11 +22,11 @@ import java.util.logging.Logger;
 public class TestReadWrite {
     public static void main(String [] args) throws IOException{
         byte [] data ;
-        Path path = Paths.get("test.txt");
+        Path path = Paths.get("pic.jpg");
             data = Files.readAllBytes(path);
             System.out.println(data);
         try {
-            FileOutputStream fos = new FileOutputStream("test2.txt");
+            FileOutputStream fos = new FileOutputStream("pic1.jpg");
             fos.write(data);
             fos.close();
         } catch (FileNotFoundException ex) {
