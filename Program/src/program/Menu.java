@@ -105,14 +105,34 @@ public class Menu {
                 break;
             case 4:
                 System.out.println("--------------------------------------------------");
+                System.out.println("[Signeture]");
+                System.out.print("Enter Filename : ");
+                filename = scan.next();
+                Signature sign = new Signature();
+                if(sign.sign(filename))System.out.println("Signature Complete!!");
                 System.out.println("--------------------------------------------------");
                 break;
             case 5:
                 System.out.println("--------------------------------------------------");
+                System.out.println("[Verify]");
+                System.out.print("Enter File Signature : ");
+                filename = scan.next();
+                System.out.print("Enter File Hash : ");
+                fileout = scan.next();
+                Verify ver = new Verify();
+                if(ver.verif(filename, fileout)){System.out.println("Verify Pass");}
+                else{System.out.println("Verify Fail");}
                 System.out.println("--------------------------------------------------");
                 break;
             case 6:
                 System.out.println("--------------------------------------------------");
+                System.out.println("[Hash]");
+                System.out.print("Enter Filename : ");
+                filename = scan.next();
+                System.out.print("Enter Block size (<32 bit) : ");
+                size = scan.nextInt();
+                Hash1 hash1 = new Hash1(size);
+                if(hash1.hashing(filename))System.out.println("Hash Complete!!");
                 System.out.println("--------------------------------------------------");
                 break;
             default:
