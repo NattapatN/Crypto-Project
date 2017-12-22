@@ -87,7 +87,7 @@ public class Decryption {
         
         System.out.println(text.length());
         if (padd != 0) {
-            text = text.substring(0, (text.length() - padd));
+            text = text.substring(0, (text.length() - padd)+1);
         }
         writeFile(fileout);
         System.out.println(text.length());
@@ -141,16 +141,16 @@ public class Decryption {
         //byte[] bval = new BigInteger(in, 2).toByteArray();
         
         byte [] bval = new byte[in.length()/8];
+        //if(in.length()%8.0 != 0) throw new RuntimeException(in.length()+"");
         int i=0;
         while(in.length()>0){
-            
             int tmp = Integer.parseInt(in.substring(0, 8), 2);
-            bval[i] = (byte)tmp;
+            bval[i++] = (byte)tmp;
 //            System.out.printf("byte %d (%d) : %s\n", i, bval[i++], in.substring(0, 8));
             in = in.substring(8);
+            
 //            bval[i] = Byte.parseByte(in.substring(0, 8), 2);
 //            System.out.printf("byte %d (%d) : %s\n", i, bval[i], in.substring(0, 8));
-//            
         }
         
         return bval;
