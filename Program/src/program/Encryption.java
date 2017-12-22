@@ -6,7 +6,11 @@
 package program;
 
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.ByteBuffer;
+import java.nio.file.Path;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -22,8 +26,9 @@ public class Encryption {
     static String cipherA="",cipherB="";
     Padding padding = new Padding();
     static DectoBinary d2b = new DectoBinary();
-    InFiletoBit readF = new InFiletoBit();
+    ReadFiletoBit readF = new ReadFiletoBit();
     StringBuilder sb ;
+    static long padd;
     
     public Encryption(){
         GetKey getKey = new GetKey("PublicKey.txt");
@@ -40,12 +45,14 @@ public class Encryption {
         block=b;
         int goEnc;
         String encpy="";
-        sb = readF.toBit(file);
+        sb = readF.read(file);
         String sbn = sb.toString();
         System.out.println("File : "+sbn);
         int i =0;
         //System.out.println("legth : "+sbn.length());
         sbn = sbn+padding.getPadding(sbn.length(), block);
+        padd=Math.floorMod(sbn.length(), block);
+        padd=block-padd;
         while (sbn.length()>1){
             //full block
             if(i!=0&&i%block==0){
@@ -81,11 +88,14 @@ public class Encryption {
             writeCipher = new PrintWriter(fileout);
             writeCipher.println(cipherA);
             writeCipher.println(cipherB);
+            writeCipher.println(padd);
             writeCipher.close();
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Encryption.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    
     
     
 }

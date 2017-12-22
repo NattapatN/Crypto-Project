@@ -6,7 +6,11 @@
 package program;
 
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.PrintWriter;
+import java.math.BigInteger;
+import java.nio.ByteBuffer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import static program.Encryption.writeCipher;
@@ -16,6 +20,8 @@ import static program.Encryption.writeCipher;
  * @author NattapatN
  */
 public class Decryption {
+    FileOutputStream dop;
+    byte data[];
     static String filename;
     int u,p,block;
     Padding pad = new Padding();
@@ -23,6 +29,7 @@ public class Decryption {
     static ExtendedEuclidGCD xuGCD = new ExtendedEuclidGCD();
     FastExponential fExpo = new FastExponential();
     static PrintWriter writePlain;
+    String text="";
     
     public Decryption(){
         GetKey getKey = new GetKey("PrivateKey.txt");
@@ -37,10 +44,10 @@ public class Decryption {
         block=bl;
         String a=getCipher.getA()+"0";
         String b=getCipher.getB()+"0";
+        int padd = Integer.parseInt(getCipher.getC());
         String tempA="",tempB="";
         int ciA,ciB;
         int textBl;
-        String text="";
         int i=0;
         boolean eof = false;
         while(!eof){
@@ -70,16 +77,19 @@ public class Decryption {
             }
             i++;
         }
+        //text = text.substring(0,text.length()-padd);
+        writeFile(fileout);
+        
         //text= pad.UnPad(text);
-        text = b2t.getText(text);
-        System.out.println("Plain Text : "+text);
-        try {
-            writePlain = new PrintWriter(fileout);
-            writePlain .println(text);
-            writePlain .close();
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Encryption.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        //text = b2t.getText(text);
+//        System.out.println("Plain Text : "+text);
+//        try {
+//            writePlain = new PrintWriter(fileout);
+//            writePlain .println(text);
+//            writePlain .close();
+//        } catch (FileNotFoundException ex) {
+//            Logger.getLogger(Encryption.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }
     private int goDecrypt(int ain,int bin){
         int a=ain;
@@ -92,6 +102,26 @@ public class Decryption {
         //System.out.println("Invert A : "+invertA);
         x=Math.floorMod(b*invertA, p);
         return (int)x;
+    }
+    
+    public void writeFile(String filename){ 
+        data = convertBittoByte(text);
+        try {
+            dop = new FileOutputStream(filename);
+            dop.write(data);
+            dop.close();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(WriteByte.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(WriteByte.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private byte[] convertBittoByte(String in){
+        
+        byte[] bval = new BigInteger(in, 2).toByteArray();
+        
+        return bval;
     }
     
 }

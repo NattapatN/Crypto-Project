@@ -16,7 +16,7 @@ public class Padding {
         String padding="1";
         int forPad = block-(length%block);
         //System.out.println("padding : " +forPad);
-        for(int i=0;i<=forPad;i++){
+        for(int i=1;i<=forPad;i++){
             padding = padding +"0";
         }
         //System.out.println("padding : " +padding);
