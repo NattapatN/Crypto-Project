@@ -60,7 +60,7 @@ public class Encryption {
         while (!end){
             //full block
             if(i!=0&&i%block==0){
-                goEnc = Integer.parseInt(encpy, 2);
+                goEnc = Integer.parseInt("0"+encpy, 2);
                 //System.out.println("Plain text "+d2b.getBinary(goEnc,block));
                 goEncrypt(goEnc,fileout);
                 //key = Integer.parseInt(bitKey, 2);
@@ -105,8 +105,8 @@ public class Encryption {
         int cA = fExpo.getFastExpo(g, k, p);
         long cB = fExpo.getFastExpo(y, k, p);
         cB = Math.floorMod((cB*in),p);
-        String cAs = d2b.getBinary(cA,block);
-        String cBs = d2b.getBinary((int)cB,block);
+        String cAs = d2b.getBinary(cA,block+1);
+        String cBs = d2b.getBinary((int)cB,block+1);
         cipherA = cipherA+cAs;
         cipherB = cipherB+cBs;
         
