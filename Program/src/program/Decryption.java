@@ -9,8 +9,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
-import static java.lang.Byte.MAX_VALUE;
-import static java.lang.Byte.MIN_VALUE;
 import java.math.BigInteger;
 import java.nio.ByteBuffer;
 import java.util.logging.Level;
@@ -58,7 +56,7 @@ public class Decryption {
                 ciA= Integer.parseInt(tempA, 2);
                 ciB= Integer.parseInt(tempB, 2);
                 textBl = goDecrypt(ciA,ciB);
-                text = text+d2b.getBinary(textBl,block).substring(1) ;
+                text = text+d2b.getBinary(textBl,block) ;
                 i=0;
                 ciA=0;
                 ciB=0;
@@ -83,22 +81,15 @@ public class Decryption {
         ciA= Integer.parseInt(tempA, 2);
                 ciB= Integer.parseInt(tempB, 2);
                 textBl = goDecrypt(ciA,ciB);
-                text = text+d2b.getBinary(textBl,block).substring(1) ;
+                text = text+d2b.getBinary(textBl,block) ;
         
         System.out.println(text.length());
         if (padd != 0) {
             text = text.substring(0, (text.length() - padd)+1);
         }
         writeFile(fileout);
-        System.out.println(text.length());
         System.out.println(text);
         aa(fileout);
-        
-        GetKey getbf = new GetKey("1.txt");
-        GetKey getaf = new GetKey("2.txt");
-        if(getbf.getA().equals(getaf.getA())){System.out.println("yes");}
-        else{System.out.println("no");}
-        
         //text= pad.UnPad(text);
         //text = b2t.getText(text);
 //        System.out.println("Plain Text : "+text);
@@ -138,6 +129,7 @@ public class Decryption {
     
     private byte[] convertBittoByte(String in){
         
+<<<<<<< HEAD
         //byte[] bval = new BigInteger(in, 2).toByteArray();
         
         byte [] bval = new byte[in.length()/8];
@@ -152,6 +144,9 @@ public class Decryption {
 //            bval[i] = Byte.parseByte(in.substring(0, 8), 2);
 //            System.out.printf("byte %d (%d) : %s\n", i, bval[i], in.substring(0, 8));
         }
+=======
+        byte[] bval = new BigInteger(in, 2).toByteArray();
+>>>>>>> parent of b05c087... v1.4
         
         return bval;
     }

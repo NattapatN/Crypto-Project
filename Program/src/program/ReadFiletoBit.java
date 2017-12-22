@@ -26,17 +26,17 @@ public class ReadFiletoBit {
             File file = new File(frilePath);
             input = new DataInputStream(new FileInputStream(file));
             try {
-                byte mask,x; int index=0;
+                int mask,x;
                 while (true) {
                     StringBuilder subsb = new StringBuilder();
 
-                    byte tmp = x = input.readByte();
+                    x = input.readByte();
 
-                    for (int i = 7; i >= 0; --i) {
-//                        mask = 1 << i;
-                        subsb.append(x >>> i & 1);
+                    for (int i = 7; i >= 0; i--) {
+                        mask = 1 << i;
+                        subsb.append((x & mask) != 0 ? "1" : "0");
                     }
-//                    System.out.printf("byte %d (%d) : %s\n", index++, x, subsb.toString());
+
                     sb.append(subsb);
                     //System.out.println("sub>>"+subsb);
                     //System.out.println(sb);
