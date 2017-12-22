@@ -130,6 +130,7 @@ public class Decryption {
     private byte[] convertBittoByte(String in){
         
 <<<<<<< HEAD
+<<<<<<< HEAD
         //byte[] bval = new BigInteger(in, 2).toByteArray();
         
         byte [] bval = new byte[in.length()/8];
@@ -144,6 +145,9 @@ public class Decryption {
 //            bval[i] = Byte.parseByte(in.substring(0, 8), 2);
 //            System.out.printf("byte %d (%d) : %s\n", i, bval[i], in.substring(0, 8));
         }
+=======
+        byte[] bval = new BigInteger(in, 2).toByteArray();
+>>>>>>> parent of b05c087... v1.4
 =======
         byte[] bval = new BigInteger(in, 2).toByteArray();
 >>>>>>> parent of b05c087... v1.4
