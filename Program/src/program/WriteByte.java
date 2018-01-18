@@ -30,9 +30,11 @@ public class WriteByte {
     
     public boolean writeFile(String file,String filename){ 
         data = convertBittoByte(file);
+        System.out.println("Byte size = " + data.length);
         try {
             dop = new FileOutputStream(filename);
             dop.write(data);
+            dop.flush();
             dop.close();
         } catch (FileNotFoundException ex) {
             Logger.getLogger(WriteByte.class.getName()).log(Level.SEVERE, null, ex);
