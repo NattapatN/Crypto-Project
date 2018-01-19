@@ -30,7 +30,7 @@ public class Hash1 {
     
     public boolean hashing (String filename){
         sb = readF.read(filename).toString();
-        GetKey getKey = new GetKey("PublicKey.txt");
+        GetKey getKey = new GetKey("PublicKey2.txt");
         p=Integer.parseInt(getKey.getA());
         
         //padding
@@ -52,6 +52,7 @@ public class Hash1 {
                     eob=true;
                 }
                 box[0]+=box[i];
+                box[0]=box[0]%p;
             }
             
         }

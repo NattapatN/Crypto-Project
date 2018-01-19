@@ -9,6 +9,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import static java.lang.Byte.MAX_VALUE;
+import static java.lang.Byte.MIN_VALUE;
 import java.math.BigInteger;
 import java.nio.ByteBuffer;
 import java.util.logging.Level;
@@ -32,7 +34,7 @@ public class Decryption {
     String text="";
     
     public Decryption(){
-        GetKey getKey = new GetKey("PrivateKey.txt");
+        GetKey getKey = new GetKey("PrivateKey1.txt");
         u=Integer.parseInt(getKey.getA());
         p=Integer.parseInt(getKey.getB());
     }
@@ -56,7 +58,7 @@ public class Decryption {
                 ciA= Integer.parseInt(tempA, 2);
                 ciB= Integer.parseInt(tempB, 2);
                 textBl = goDecrypt(ciA,ciB);
-                text = text+d2b.getBinary(textBl,block) ;
+                text = text+d2b.getBinary(textBl,block).substring(1) ;
                 i=0;
                 ciA=0;
                 ciB=0;
@@ -81,15 +83,22 @@ public class Decryption {
         ciA= Integer.parseInt(tempA, 2);
                 ciB= Integer.parseInt(tempB, 2);
                 textBl = goDecrypt(ciA,ciB);
-                text = text+d2b.getBinary(textBl,block) ;
+                text = text+d2b.getBinary(textBl,block).substring(1) ;
         
         System.out.println(text.length());
         if (padd != 0) {
-            text = text.substring(0, (text.length() - padd)+1);
+            text = text.substring(0, (text.length() - padd));
         }
         writeFile(fileout);
+        System.out.println(text.length());
         System.out.println(text);
         aa(fileout);
+        
+        GetKey getbf = new GetKey("1.txt");
+        GetKey getaf = new GetKey("2.txt");
+        if(getbf.getA().equals(getaf.getA())){System.out.println("yes");}
+        else{System.out.println("no");}
+        
         //text= pad.UnPad(text);
         //text = b2t.getText(text);
 //        System.out.println("Plain Text : "+text);
@@ -128,21 +137,23 @@ public class Decryption {
     }
     
     private byte[] convertBittoByte(String in){
-      
+        
         //byte[] bval = new BigInteger(in, 2).toByteArray();
         
         byte [] bval = new byte[in.length()/8];
-        //if(in.length()%8.0 != 0) throw new RuntimeException(in.length()+"");
         int i=0;
         while(in.length()>0){
+            
             int tmp = Integer.parseInt(in.substring(0, 8), 2);
-            bval[i++] = (byte)tmp;
+            bval[i] = (byte)tmp;
 //            System.out.printf("byte %d (%d) : %s\n", i, bval[i++], in.substring(0, 8));
             in = in.substring(8);
-            
+            i++;
 //            bval[i] = Byte.parseByte(in.substring(0, 8), 2);
 //            System.out.printf("byte %d (%d) : %s\n", i, bval[i], in.substring(0, 8));
+//            
         }
+        
         return bval;
     }
     

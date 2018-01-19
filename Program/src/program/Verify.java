@@ -19,7 +19,7 @@ public class Verify {
     
     public boolean verif(String sign,String h){
         //get key
-        GetKey getPk =new GetKey("PublicKey.txt");
+        GetKey getPk =new GetKey("PublicKey2.txt");
         p=Integer.parseInt(getPk.getA());
         g=Integer.parseInt(getPk.getB());
         y=Integer.parseInt(getPk.getC());

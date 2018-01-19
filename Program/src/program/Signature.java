@@ -30,11 +30,11 @@ public class Signature {
     public boolean sign(String file){
         filename = file;
         //get U
-        GetKey getSk =new GetKey("PrivateKey.txt");
+        GetKey getSk =new GetKey("PrivateKey1.txt");
         u=Integer.parseInt(getSk.getA());
         
         //get p g
-        GetKey getPk =new GetKey("PublicKey.txt");
+        GetKey getPk =new GetKey("PublicKey1.txt");
         p=Integer.parseInt(getPk.getA());
         g=Integer.parseInt(getPk.getB());
         
